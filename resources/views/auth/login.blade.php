@@ -30,18 +30,10 @@
             <div class="d-flex flex-stack mb-2">
                 <!--begin::Label-->
                 <input class="form-control form-control-lg form-control-solid" type="password" placeholder="Password" name="password" autocomplete="off" />
-                <!--end::Label-->
-                <!--begin::Link-->
 
-                <!--end::Link-->
             </div>
               <a href="../../demo1/dist/authentication/layouts/basic/password-reset.html" class="link-success fs-6 fw-bolder">Forgot Password ?</a>
-            <!--end::Wrapper-->
-            <!--begin::Input-->
         </div>
-
-        <!--end::Input group-->
-        <!--begin::Actions-->
         <div class="text-center">
             <!--begin::Submit button-->
             <a  href={{ url('/dashboard/home') }} type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-success w-100 mb-5">
