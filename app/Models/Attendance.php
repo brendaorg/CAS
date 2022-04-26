@@ -11,7 +11,7 @@ class Attendance extends Model
 
     protected $table = 'attendances';
 
-    protected $fillable = ['id', 'user_id','course_id','date','timein','timeout', 'status'];
+    protected $fillable = ['id', 'user_id','course_id','date','timein','status'];
 
     public function user(){
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id')->withDefault(['name' => 'Unknown']);
