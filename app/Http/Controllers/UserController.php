@@ -14,7 +14,8 @@ class UserController extends Controller {
 	}
 
 	public function users(){
-		return view('layouts/users');
+		$this->data['users'] = \App\Models\User::whereIn('usertype',array('Admin','Lecturer'))->where('status',1)->get();
+		return view('layouts/users',$this->data);
 	}
 
 	public function students(){
@@ -53,9 +54,35 @@ class UserController extends Controller {
             'registration_number' => $data['registration_number'],
             'password'    => bcrypt($data['password'])
         ]);
-
 		// $this->sendEmailAndSms($request);
         return redirect('users/index')->with('success', 'User ' .  $data['first_name'] . ' created successfully');
+	}
+
+
+	public function registerStaff()
+	{
+		$data = request()->validate([
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'email' =>  'required|email|string|unique:users,email',
+			'gender' => 'required|string',
+			'password' => ['required',Rules\Password::min(8)->mixedCase()->numbers()->symbols()]
+		]);
+
+		$user = \App\Models\User::create([
+            'first_name'  => $data['first_name'],
+            'last_name'   => $data['last_name'],
+            'email'       => $data['email'],
+			'usertype'    => 'Lecturer',
+            'gender'      => $data['gender'],
+			'program_id'  => 0,
+			'status'      => 1,
+            'registration_number' => 0002,
+            'password'    => bcrypt($data['password'])
+        ]);
+
+        return redirect('users/staffs')->with('success',' created successfully');
+
 	}
 
 
@@ -66,12 +93,21 @@ class UserController extends Controller {
             'password' =>  'required'
           ]);
 
-         if(!Auth::attempt($credentials)){
+          if(!\Auth::attempt($credentials)){
               return response(['error' => 'The provided credentials are not correct'],422);
            }
 
-        return redirect('users/index')->with('success', 'User ' .  $data['first_name'] . ' created successfully');
+        return redirect('dashboard/home')->with('success', 'Successfully');
 	}
+
+
+	public function logout()
+    {
+        \Session::flush();
+        \Auth::logout();
+        return redirect('/');
+    }
+
 
 
 	public function resetPassword(){
