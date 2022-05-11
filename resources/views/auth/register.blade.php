@@ -1,22 +1,17 @@
 @extends('auth.base')
 @section('content')
-<h1>CLASS ATTENDANCE SYSTEM</h1>
+
 <div class="w-lg-600px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
     <!--begin::Form-->
     <form class="form w-100" novalidate="novalidate" id="kt_sign_up_form">
         <!--begin::Heading-->
         <div class="mb-10 text-center">
             <!--begin::Title-->
+            <h1 class="fw-bolder ">CLASS ATTENDANCE SYSTEM</h1>
               <a href="#" class="mb-18">
-				 <img alt="Logo" src="assets/media/logos/bg-1.png" class="h-100px " />
+				 <img alt="Logo" src="assets/media/logos/bg-1.png" class="h-150px " />
 			 </a>
-            <h1 class="text-dark mb-3">Create an Account</h1>
-            <!--end::Title-->
-            <!--begin::Link-->
-            <div class="text-gray-400 fw-bold fs-4">Already have an account?
-            <a href="{{ url('/')}}" class="link-primary fw-bolder">Sign in here</a></div>
-            <!--end::Link-->
-        </div>
+            <h1 class="fw-normal mb-3 fs-12">Create an Account</h1>
 
 
         <div class="row fv-row mb-7">
@@ -73,16 +68,20 @@
         </div>
         <!--end::Input group=-->
         <!--begin::Input group-->
-        <div class="fv-row mb-5"> 
+        <div class="fv-row mb-5">
             <input class="form-control form-control-lg form-control-solid" type="password" placeholder="Confirm Password" name="confirm-password" autocomplete="off" />
         </div>
 
         <div class="text-center">
-            <a href={{ url('/dashboard/home') }} type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-primary">
+            <a href={{ url('/dashboard/home') }} type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-success">
                 <span class="indicator-label">Submit</span>
                 <span class="indicator-progress">Please wait...
                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
             </a>
+        </div>
+         <div class="text-gray-400 fw-bold fs-4">Already have an account?
+            <a href="{{ url('/')}}" class="link-success fw-bolder">Sign in here</a></div>
+            <!--end::Link-->
         </div>
     </form>
     <!--end::Form-->

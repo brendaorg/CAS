@@ -1,12 +1,13 @@
 @extends('auth.base')
 @section('content')
-<h1>CLASS ATTENDANCE SYSTEM</h1>
+
 <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
     <!--begin::Form-->
     <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="#">
         <!--begin::Heading-->
         <div class="text-center mb-10">
             <!--begin::Title-->
+            <h1>CLASS ATTENDANCE SYSTEM</h1>
               <a href="#" class="mb-18">
 				 <img alt="Logo" src="assets/media/logos/bg-1.png" class="h-150px " />
 			 </a>
