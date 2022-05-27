@@ -23,7 +23,9 @@ class UserController extends Controller {
 	}
 
 	public function registerStudent(){
-		return view('auth/register');
+		$this->data['programs'] = \App\Models\Program::all();
+		 
+		return view('auth/register',$this->data);
 	}
 
 	public function userRules(){
@@ -35,13 +37,15 @@ class UserController extends Controller {
 			'program_id' => 'required|integer|exists:programs,id',
 			'registration_number' => 'required|string|unique:users',
 			'gender' => 'required|string',
-			'password' => ['required','confirmed',Rules\Password::min(8)->mixedCase()->numbers()->symbols()]
+			'password' => ['required',Rules\Password::min(6)->mixedCase()->numbers()->symbols()]
 		]);
 		return $data;
 	}
 
-	public function register(){
-	    $data = $this->userRules();
+	
+
+	public function createStudent(){
+	     $data = $this->userRules();
 		$user = \App\Models\User::create([
             'first_name'  => $data['first_name'],
             'middle_name' => $data['middle_name'],
@@ -54,8 +58,7 @@ class UserController extends Controller {
             'registration_number' => $data['registration_number'],
             'password'    => bcrypt($data['password'])
         ]);
-		// $this->sendEmailAndSms($request);
-        return redirect('users/index')->with('success', 'User ' .  $data['first_name'] . ' created successfully');
+        return redirect('/')->with('success', 'User ' .  $data['first_name'] . ' created successfully');
 	}
 
 

@@ -11,18 +11,14 @@
             <h3>Degree/Diploma Programs</h3>
         </div>
         <div class="card-toolbar">
-            <a href="#" class="btn btn-sm btn-primary my-1">Add new program</a>
+            <a href="/createprograms" class="btn btn-sm btn-primary my-1">Add new program</a>
         </div>
-        <!--end::Toolbar-->
     </div>
-    <!--end::Card header-->
-    <!--begin::Card body-->
+  
+
     <div class="card-body p-0">
-        <!--begin::Table wrapper-->
         <div class="table-responsive">
-            <!--begin::Table-->
             <table class="table table-flush align-middle table-row-bordered table-row-solid gy-4 gs-9">
-                <!--begin::Thead-->
                 <thead class="border-gray-200 fs-5 fw-bold bg-lighten">
                     <tr>
                         <th class="min-w-50px">#</th>
@@ -33,62 +29,27 @@
                         <th class="min-w-150px">Action</th>
                     </tr>
                 </thead>
-                <!--end::Thead-->
-                <!--begin::Tbody-->
+
                 <tbody class="fw-6 fw-bold text-gray-600">
-                    <tr>
-                        <td>1</td>
-                        <td>
-                            <a href="#" class="text-hover-primary text-gray-600">Bsc IN TELECOMMUNICATIONS ENGINEERING</a>
-                        </td>
-                        <td>
-                            <span class="badge badge-light-success fs-7 fw-bolder">Degree</span>
-                        </td>
-                        <td> 4 Years</td>
-                        <td>BSc TE</td>
-                        <td><a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Edit</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-
-                        <td>
-                            <a href="#" class="text-hover-primary text-gray-600">BSC IN COMPUTER ENGINEERING</a>
-                        </td>
-                        <td>
-                            <span class="badge badge-light-success fs-7 fw-bolder">Degree</span>
-                        </td>
-                        <td> 4 Years</td>
-                        <td>BSc CE</td>
-                        <td><a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Edit</a></td>
-                    </tr>
+                    @foreach($programs as $index => $program)
 
                     <tr>
-                        <td>3</td>
-
+                        <td><?= $index +1 ?></td>
                         <td>
-                            <a href="#" class="text-hover-primary text-gray-600">BSC IN COMPUTER SCIENCE</a>
+                            <a href="#" class="text-hover-primary text-gray-600"><?= $program->program_name ?></a>
                         </td>
                         <td>
-                            <span class="badge badge-light-success fs-7 fw-bolder">Degree</span>
+                            <span class="badge badge-light-success fs-7 fw-bolder"><?= $program->program_type ?></span>
                         </td>
-                        <td> 3 Years</td>
-                        <td>BSc CS</td>
-                        <td><a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Edit</a></td>
+                        <td> <?= $program->program_time ?> Years</td>
+                        <td><?= $program->program_code ?></td>
+                        <td>
+                            <?php $edit_url = "program/edit/$program->id"; $show_url = "program/show/$program->id"; ?>
+                            <a href="<?= url($edit_url) ?>" class="menu-link px-3 btn btn-primary" data-kt-users-table-filter="delete_row">Edit</a>
+                        <a href="<?= url($show_url) ?>" class="menu-link px-3 btn btn-info" data-kt-users-table-filter="delete_row">view</a></td>
                     </tr>
+                    @endforeach
 
-                    <tr>
-                        <td>4</td>
-
-                        <td>
-                            <a href="#" class="text-hover-primary text-gray-600">DIPLOMA IN COMPUTER SCIENCE</a>
-                        </td>
-                        <td>
-                            <span class="badge badge-light-success fs-7 fw-bolder">Diploma</span>
-                        </td>
-                        <td> 2 Years</td>
-                        <td> CS</td>
-                        <td><a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Edit</a></td>
-                    </tr>
                 </tbody>
                 <!--end::Tbody-->
             </table>
