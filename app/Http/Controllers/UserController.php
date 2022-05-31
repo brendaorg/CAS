@@ -24,7 +24,6 @@ class UserController extends Controller {
 
 	public function registerStudent(){
 		$this->data['programs'] = \App\Models\Program::all();
-		 
 		return view('auth/register',$this->data);
 	}
 
@@ -46,6 +45,7 @@ class UserController extends Controller {
 
 	public function createStudent(){
 	     $data = $this->userRules();
+	     $cas_id = $this->generateNumber();
 		$user = \App\Models\User::create([
             'first_name'  => $data['first_name'],
             'middle_name' => $data['middle_name'],
@@ -56,9 +56,16 @@ class UserController extends Controller {
             'program_id'  => $data['program_id'],
 			'status'      => 1,
             'registration_number' => $data['registration_number'],
-            'password'    => bcrypt($data['password'])
+            'password'    => bcrypt($data['password']),
+            'cas_id'      => $cas_id
         ]);
         return redirect('/')->with('success', 'User ' .  $data['first_name'] . ' created successfully');
+	}
+
+	private function generateNumber()
+	{
+        $cas_id = \collect(DB::select("select max(cas_id) from users  where usertype = 'Student' "))->first();
+        return $cas_id + 1;
 	}
 
 

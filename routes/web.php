@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboadController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,12 @@ Route::get('/register',[UserController::class,'registerStudent']);
 Route::post('/createstudent',[UserController::class,'createStudent']);
 
 
-// Route::post('/createStaff',[UserController::class,'registerStaff']);
+Route::get('/courses',[CourseController::class,'index']);
+Route::get('/createcourses',[CourseController::class,'createcourses']);
+Route::post('/addcourse',[CourseController::class,'storeCourse']);
+
+
+
 Route::post('/login',[UserController::class,'login']);
 
 Route::group(['middleware' => ['auth']], function() {

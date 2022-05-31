@@ -11,7 +11,7 @@ class Course extends Model
     
     protected $table = 'courses';
 
-    protected $fillable = ['id','course_name','course_code','periodic_time','venue_name'];
+    protected $fillable = ['id','uuid','course_name','course_code','periodic_time','venue_name','created_at'];
 
     public function attendees()
     {
