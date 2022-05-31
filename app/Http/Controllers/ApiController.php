@@ -11,4 +11,18 @@ class ApiController extends Controller
         $users = \App\Models\User::all();
         return json_encode($users);
     }
+
+
+     public function students(){
+    $students = \App\Models\User::where(['usertype'=>'Student'])->whereNotNull('cas_id')
+    ->get(['cas_id','first_name','last_name']);
+        return json_encode($students);
+    }
+
+
+     public function attendances()
+     {
+         $cas_id = request('finger_print_id');
+
+     }
 }
