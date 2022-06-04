@@ -18,4 +18,9 @@ class Program extends Model
     {
         return $this->hasMany(\App\Models\User::class);
     }
+
+    protected static function newFactory()
+    {
+        return new CoursesFactory();
+    }
 }

@@ -2,6 +2,20 @@
 @section('content')
 
 <div class="post d-flex flex-column-fluid" id="kt_post">
+
+     <div class="toolbar" id="kt_toolbar">
+        <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+            <!--begin::Page title-->
+            <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+                <!--begin::Title-->
+                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Programs List</h1>
+                <!--end::Title-->
+                <span class="h-20px border-gray-200 border-start mx-4"></span>
+            </div>
+        </div>
+    </div>
+
+
     <div id="kt_content_container" class="container-xxl">
     <div class="card mb-5 mb-lg-10">
     <!--begin::Card header-->
@@ -46,7 +60,8 @@
                         <td>
                             <?php $edit_url = "program/edit/$program->id"; $show_url = "program/show/$program->id"; ?>
                             <a href="<?= url($edit_url) ?>" class="menu-link px-3 btn btn-primary" data-kt-users-table-filter="delete_row">Edit</a>
-                        <a href="<?= url($show_url) ?>" class="menu-link px-3 btn btn-info" data-kt-users-table-filter="delete_row">view</a></td>
+                       <!--  <a href="<?= url($show_url) ?>" class="menu-link px-3 btn btn-info" data-kt-users-table-filter="delete_row">view</a>
+ -->                    </td>
                     </tr>
                     @endforeach
 

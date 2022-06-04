@@ -41,7 +41,21 @@ Route::post('/createstudent',[UserController::class,'createStudent']);
 
 Route::get('/courses',[CourseController::class,'index']);
 Route::get('/createcourses',[CourseController::class,'createcourses']);
+Route::get('/course/edit/{course_id}',[CourseController::class,'editcourses']);
+Route::get('/course/show/{course_id}',[CourseController::class,'showcourses']);
 Route::post('/addcourse',[CourseController::class,'storeCourse']);
+Route::post('/edit_courses',[CourseController::class,'editCourse']); 
+
+Route::post('/searchattendance',[CourseController::class,'searchAttendance']); 
+
+Route::get('/set_table',[CourseController::class,'setCourseTimetable']); 
+Route::get('/createTimetable',[CourseController::class,'createCourseTimetable']); 
+Route::post('/createcoursesTimetable',[CourseController::class,'storeTimetable']); 
+
+
+Route::get('/timetable/edit/{course_id}',[CourseController::class,'editTimetable']); 
+Route::get('/timetable/show/{course_id}',[CourseController::class,'showTimetable']); 
+Route::post('/editcoursesTimetable',[CourseController::class,'editcoursesTimetable']); 
 
 
 

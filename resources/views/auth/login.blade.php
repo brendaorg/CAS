@@ -14,12 +14,19 @@
 
         <div class="fv-row mb-10">
             <input class="form-control form-control-lg form-control-solid" type="email" placeholder="Email" name="email" autocomplete="off" required/>
+             @if ($errors->has('email'))
+                 <span class="text-danger">{{ $errors->first('email') }}</span>
+             @endif
         </div>
     
         <div class="fv-row mb-10">
             <div class="d-flex flex-stack mb-2">
                 <input class="form-control form-control-lg form-control-solid" type="password" placeholder="Password" name="password" autocomplete="off" required/>
             </div>
+            @if ($errors->has('password'))
+                 <span class="text-danger">{{ $errors->first('password') }}</span>
+             @endif
+             
               <a href="../../demo1/dist/authentication/layouts/basic/password-reset.html" class="link-success fs-6 fw-bolder">Forgot Password ?</a>
         </div>
         <div class="text-center">

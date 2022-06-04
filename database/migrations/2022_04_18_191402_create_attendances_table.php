@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid')->unique();
             $table->foreignIdFor(\App\Models\User::class,'user_id');
             $table->foreignIdFor(\App\Models\Course::class,'course_id');
-            $table->timestamp('date');
-          //  $table->timestamp('timein');
+            $table->date('date');
+            $table->dateTime('timein');
             $table->tinyInteger('status');
-            $table->timestamps();
         });
     }
 
