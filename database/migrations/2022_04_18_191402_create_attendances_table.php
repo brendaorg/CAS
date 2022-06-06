@@ -19,8 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\User::class,'user_id');
             $table->foreignIdFor(\App\Models\Course::class,'course_id');
             $table->timestamp('date');
-            $table->timestamp('timein');
-            $table->timestamp('timeout')->nullable();
+          //  $table->timestamp('timein');
             $table->tinyInteger('status');
             $table->timestamps();
         });

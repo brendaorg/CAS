@@ -4,7 +4,6 @@
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <div class="toolbar" id="kt_toolbar">
 
-        <!--end::Container-->
     </div>
 
 
@@ -27,7 +26,7 @@
                 </span>
                 <!--end::Svg Icon-->
                 <div class="text-white fw-bolder fs-2 mb-2 mt-5">Sytem users</div>
-                <div class="fw-bold text-white">4</div>
+                <div class="fw-bold text-white"><?= $totalusers ?? '0'?></div>
             </div>
             <!--end::Body-->
         </a>
@@ -48,7 +47,7 @@
                 </span>
                 <!--end::Svg Icon-->
                 <div class="text-white fw-bolder fs-2 mb-2 mt-5">Students</div>
-                <div class="fw-bold text-white"> 50</div>
+                <div class="fw-bold text-white"> <?= $students ?? 0 ?></div>
             </div>
             <!--end::Body-->
         </a>
@@ -68,7 +67,7 @@
                 </span>
                 <!--end::Svg Icon-->
                 <div class="text-white fw-bolder fs-2 mb-2 mt-5">Programs</div>
-                <div class="fw-bold text-white">4</div>
+                <div class="fw-bold text-white"><?= $programs ?? 0 ?></div>
             </div>
             <!--end::Body-->
         </a>
