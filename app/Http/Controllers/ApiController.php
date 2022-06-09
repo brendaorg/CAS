@@ -23,7 +23,6 @@ class ApiController extends Controller
     }
 
 
-   
      public function postAttendances(){
           $user_id = request('user_id'); 
           $date = date('Y-m-d'); 
@@ -33,9 +32,7 @@ class ApiController extends Controller
    
          $user = \DB::table('users')->where('id',$user_id)->where('usertype','=','Student')->first();
          if($user){
-                 
                 $response = \App\Models\Attendance::create(array('user_id'=>$user_id,'date'=>$date,'timein'=>$timein,'course_id'=>$course_id,'status'=>$status));
-         
                  if($response){
                      return json_encode(array('status'=>'1','message'=>'Successfully'));
                  } else{

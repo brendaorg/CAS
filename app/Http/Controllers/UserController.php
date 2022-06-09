@@ -118,7 +118,7 @@ class UserController extends Controller {
         return redirect('/');
     }
 
-
+    
 
 	public function resetPassword(){
 		$id = request('user_id');
@@ -143,4 +143,27 @@ class UserController extends Controller {
 		}
 	}
 	
+
+
+	 public function studentCourses()
+    {
+          request()->validate([
+            'allcourse_ids' => 'required',
+            'student_id'=>'required',
+        ]);
+
+		$allcourses = request('allcourse_ids');
+		$student_id = request('student_id');
+
+        foreach($allcourses as $key => $value){
+        	$array_data = array('student_id'=> (int) $student_id,'course_id'=> (int) $value);
+            $data = \DB::table('student_courses')->where($array_data)->first();
+		
+			if(empty($data)){
+               \DB::table('student_courses')->insert($array_data);
+			}
+        }
+        return redirect()->back()->with('success', 'Updated successfully');
+
+    }
 }

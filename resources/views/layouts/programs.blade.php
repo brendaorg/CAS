@@ -66,13 +66,9 @@
                     @endforeach
 
                 </tbody>
-                <!--end::Tbody-->
             </table>
-            <!--end::Table-->
         </div>
-        <!--end::Table wrapper-->
     </div>
-    <!--end::Card body-->
 </div>
 </div>
 </div>

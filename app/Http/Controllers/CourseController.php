@@ -69,7 +69,7 @@ class CourseController extends Controller
         $search_date = date('Y-m-d', strtotime(request('search_date')));
         $data['course_id'] = $course_id  = request('course_id');
 
-        $data['attendances'] = \App\Models\User::join('attendances', 'users.id', '=', 'attendances.user_id')->join('programs', 'programs.id', '=', 'users.program_id')->join('programs', 'programs.id', '=', 'users.program_id')->where('attendances.date','=',$search_date)->where('attendances.course_id','=',(int)$course_id)->where('users.status','=','1')->where('users.usertype','=','Student')->get(['users.*', 'attendances.*','programs.program_name']);
+        $data['attendances'] = \App\Models\User::join('attendances', 'users.id', '=', 'attendances.user_id')->join('programs', 'programs.id', '=', 'users.program_id')->where('attendances.date','=',$search_date)->where('attendances.course_id','=',(int)$course_id)->where('users.status','=','1')->where('users.usertype','=','Student')->get(['users.*', 'attendances.*','programs.program_name']);
 
          return view('layouts/showcourse',$data);
     }
@@ -153,10 +153,13 @@ class CourseController extends Controller
 
 
     public  function showTimetable($course_id){
-         $data['courses'] =  \DB::table('course_timetable')->join('courses','courses.id','=','course_timetable.course_id')->where('course_timetable.course_id','=',$course_id)->get(['course_timetable.date','courses.id as course_id','courses.course_name','courses.course_code']);
-
-          return view('layouts/show_timetable',$data);
-
+         $data['courses'] = $courses = \DB::table('course_timetable')->join('courses','courses.id','=','course_timetable.course_id')->where('course_timetable.course_id','=',$course_id)->get();
+         
+          foreach($courses as $course){
+              $name = $course->course_name;
+          }
+          $data['name'] = $name;
+         return view('layouts/show_timetable',$data);
     }
    
 }
