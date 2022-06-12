@@ -19,7 +19,9 @@ class UserController extends Controller {
 	}
 
 	public function students(){
-	    $data['users'] = \App\Models\User::join('programs', 'programs.id', '=', 'users.program_id')->where('users.status','=','1')->where('users.usertype','=','Student')->paginate(10);
+	    $data['users'] = \App\Models\User::join('programs', 'programs.id', '=', 'users.program_id')
+		->where('users.status','=','1')->where('users.usertype','=','Student')->select('users.*','programs.id as program_id')
+		->paginate(10);
 		return view('layouts/students',$data);
 	}
 
@@ -36,8 +38,9 @@ class UserController extends Controller {
 			'program_id' => 'required|integer|exists:programs,id',
 			'registration_number' => 'required|string|unique:users',
 			'gender' => 'required|string',
-			'password' => ['required',Rules\Password::min(6)->mixedCase()->numbers()->symbols()]
+			'password' => 'required|confirmed|min:8'
 		]);
+		
 		return $data;
 	}
 
@@ -46,6 +49,7 @@ class UserController extends Controller {
 	public function createStudent(){
 	     $data = $this->userRules();
 	     $cas_id = $this->generateNumber();
+         
 		$user = \App\Models\User::create([
             'first_name'  => $data['first_name'],
             'middle_name' => $data['middle_name'] ?? '',

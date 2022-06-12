@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboadController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,14 +39,16 @@ Route::get('/', ['as' => 'login', 'uses' => 'App\Http\Controllers\UserController
 
 
 
-
 Route::post('/login',[UserController::class,'login']);
+Route::get('/register',[UserController::class,'registerStudent']);
+Route::post('/createstudent',[UserController::class,'createStudent']);
+
+
 
 Route::group(['middleware' => ['auth']], function() {
-   Route::get('/logout',[UserController::class,'logout'])->name('logout');
-   Route::post('/createStaff',[UserController::class,'registerStaff']);
+Route::get('/logout',[UserController::class,'logout'])->name('logout');
+Route::post('/createStaff',[UserController::class,'registerStaff']);
 
-   
 Route::get('/dashboard/home',[DashboadController::class,'index']); 
 Route::get('/dashboard/reports',[DashboadController::class,'studentReports']); 
 Route::get('/dashboard/student',[DashboadController::class,'studentHome']);
@@ -66,8 +69,6 @@ Route::get('/course/show/{course_id}',[CourseController::class,'showcourses']);
 Route::post('/addcourse',[CourseController::class,'storeCourse']);
 Route::post('/edit_courses',[CourseController::class,'editCourse']); 
 
-Route::get('/register',[UserController::class,'registerStudent']);
-Route::post('/createstudent',[UserController::class,'createStudent']);
 
 
 Route::get('/courses',[CourseController::class,'index']);
@@ -93,7 +94,12 @@ Route::get('/student',[DashboadController::class,'studentHome']);
  
 Route::post('/searchcourses',[AttendanceController::class,'searchReports']);   
 Route::post('/pickcourse',[UserController::class,'studentCourses']);    
-Route::post('/searchCourse',[DashboadController::class,'studentSearchCourse']);    
+Route::post('/searchCourse',[DashboadController::class,'studentSearchCourse']);  
+
+
+Route::get('/sendapi/{user_id}',[ApiController::class,'student']);  
+
+
 });
 
 

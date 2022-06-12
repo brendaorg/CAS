@@ -167,6 +167,8 @@
 										<span class="menu-arrow"></span>
 									</span>
 									<div class="menu-sub menu-sub-accordion">
+
+						           	<?php if(\Auth::user()->usertype <> 'Admin') { ?>
 										<div class="menu-item">
 											<a class="menu-link" href="{{ url('/users/staffs')}}">
 												<span class="menu-bullet">
@@ -175,6 +177,8 @@
 												<span class="menu-title">Staff</span>
 											</a>
 										</div>
+								     <?php } ?>
+
 										<div class="menu-item">
 											<a class="menu-link" href="{{ url('/users/students')}}">
 												<span class="menu-bullet">

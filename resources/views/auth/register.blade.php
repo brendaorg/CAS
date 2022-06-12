@@ -1,9 +1,9 @@
 @extends('auth.base')
 @section('content')
 
-<h1>CLASS ATTENDANCE SYSTEM</h1>
 <div class="w-lg-900px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
- 
+<h1 class="text-center">CLASS ATTENDANCE SYSTEM</h1>
+   
 
     <form class="form w-160" novalidate="novalidate" action="/createstudent" method="POST">
         @csrf
@@ -81,10 +81,9 @@
             @endif
        </div>
        <div class="col-xl-6">
-           <input class="form-control form-control-lg form-control-solid" type="password" placeholder="Confirm Password" required name="password" />
-            @if ($errors->has('password'))
-                 <span class="text-danger">{{ $errors->first('password') }}</span>
-            @endif
+           <input class="form-control form-control-lg form-control-solid" type="password" placeholder="Confirm Password" 
+           @error('password') is-invalid @enderror required name="password_confirmation" />
+          
        </div>
      </div>
 

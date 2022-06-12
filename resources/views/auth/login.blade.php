@@ -1,8 +1,9 @@
 @extends('auth.base')
 @section('content')
-<h1>CLASS ATTENDANCE SYSTEM</h1>
 <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
     <!--begin::Form-->
+<h1 class="text-center">CLASS ATTENDANCE SYSTEM</h1>
+
     <form class="form w-100" novalidate="novalidate" method="POST" action="/login">
         @csrf
 

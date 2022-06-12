@@ -1,5 +1,8 @@
 @extends('layouts.base')
 @section('content')
+<?php 
+
+?>
 
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
     <div class="toolbar" id="kt_toolbar">
@@ -42,6 +45,7 @@
                                 <th class="min-w-125px">REGISTRATION No</th> 
                                 <th class="min-w-125px">PROGRAM</th> 
                                 <th class="min-w-125px">ATTENDANCE ID</th> 
+                                <th class="min-w-125px">STATUS</th> 
                             </tr>
                         </thead>
                         
@@ -79,6 +83,16 @@
 
                                  <td class="text-start">
                                      <?= $user->cas_id ?? ''?>                              
+                                </td>
+
+                                <td class="text-start">
+                                    <?php $count_ = \DB::table('attendances')->where('user_id',(int)$user->id)->count();  { ?>
+                                     <?php if($count_ > 0) { ?>
+                                      <span class="badge badge-light-primary fw-bolder me-auto px-4 py-3">  REGISTERED</span>
+                                    <?php } else { ?>
+                                        <a href="<?= url('/sendapi'.'/'. $user->id) ?>"  target="_break" class="badge badge-light-success  me-auto px-4 py-3">  REGISTER</a>
+                                     <?php } ?>
+                                     <?php } ?>
                                 </td>
 
                             </tr>

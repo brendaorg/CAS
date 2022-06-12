@@ -13,13 +13,13 @@ class ApiController extends Controller
     }
 
 
-     public function students(){
-    $students = \App\Models\User::where(['usertype'=>'Student'])->whereNotNull('cas_id')
-    ->get(['cas_id as attendance_id','first_name','last_name']);
-
+     public function student($user_id){
+       $students = \App\Models\User::where(['usertype'=>'Student','id'=>$user_id])->whereNotNull('cas_id')
+     ->get(['cas_id as attendance_id','first_name','last_name']);
          return [
-            'students' => \App\Http\Resources\UserResource::collection($students)
+            'student' => \App\Http\Resources\UserResource::collection($students)
         ];
+		return view('layouts/students',$data);
     }
 
 
