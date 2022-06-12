@@ -11,11 +11,16 @@ class Program extends Model
 
     protected $table = 'programs';
     
-    protected $fillable = ['id','program_name','program_code','program_time','program_type'];
+    protected $fillable = ['id','uuid','program_name','program_code','program_time','program_type'];
 
 
     public function users()
     {
         return $this->hasMany(\App\Models\User::class);
+    }
+
+    protected static function newFactory()
+    {
+        return new CoursesFactory();
     }
 }

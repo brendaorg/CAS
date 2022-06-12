@@ -9,6 +9,8 @@ class Attendance extends Model
 {
     use HasFactory;
 
+    public $timestamps = false; 
+    
     protected $table = 'attendances';
 
     protected $fillable = ['id', 'user_id','course_id','date','timein','status'];

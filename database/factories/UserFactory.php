@@ -15,14 +15,22 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    private static $order = 2;
+
     public function definition()
-    {
+    { 
         return [
-            'name' => $this->faker->name(),
+            'first_name' => $this->faker->firstName($gender = 'male'),
+            'middle_name' => $this->faker->lastName($gender = 'male'),
+            'last_name' => $this->faker->lastName($gender = 'male'),
+            'usertype' => 'Student',
             'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'program_id' =>  \App\Models\Program::inRandomOrder()->first()->id,
+            'status' => 1,
+            'registration_number' => Str::random(6),
+            'gender' => 'male',
+            'password' => bcrypt($this->faker->password(10)),
+            'cas_id' => self::$order++,
         ];
     }
 

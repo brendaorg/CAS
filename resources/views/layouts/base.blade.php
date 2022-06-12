@@ -8,14 +8,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:type" content="article" />
-		<meta property="og:title" content="Metronic - Bootstrap 5 HTML, VueJS, React, Angular &amp; Laravel Admin Dashboard Theme" />
+		
 		<meta property="og:url" content="https://keenthemes.com/metronic" />
 		<meta property="og:site_name" content="Keenthemes | Metronic" />
 		<link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
 		<link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
-		<!--end::Fonts-->
+		<link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+		
 		<link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -61,6 +62,8 @@
 										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Dashboard</span>
 									</div>
 								</div>
+
+								<?php if(\Auth::user()->usertype == 'Admin') { ?>
 								<div class="menu-item">
 									<a class="menu-link" href="{{ url('/dashboard/home')}}">
 										<span class="menu-icon">
@@ -78,9 +81,36 @@
 										<span class="menu-title">Home</span>
 									</a>
 								</div>
+							  <?php } ?>
+                                 
+                                 	<div class="menu-item">
+									<a class="menu-link" href="{{ url('/set_table')}}">
+										<span class="menu-icon">
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<path opacity="0.3" d="M20 21H3C2.4 21 2 20.6 2 20V10C2 9.4 2.4 9 3 9H20C20.6 9 21 9.4 21 10V20C21 20.6 20.6 21 20 21Z" fill="black" />
+													<path d="M20 7H3C2.4 7 2 6.6 2 6V3C2 2.4 2.4 2 3 2H20C20.6 2 21 2.4 21 3V6C21 6.6 20.6 7 20 7Z" fill="black" />
+												</svg>											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">Set timetable</span>
+									</a>
+								</div>
 
+									<div class="menu-item">
+									<a class="menu-link" href="{{ url('/courses')}}">
+										<span class="menu-icon">
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<path opacity="0.3" d="M20 21H3C2.4 21 2 20.6 2 20V10C2 9.4 2.4 9 3 9H20C20.6 9 21 9.4 21 10V20C21 20.6 20.6 21 20 21Z" fill="black" />
+													<path d="M20 7H3C2.4 7 2 6.6 2 6V3C2 2.4 2.4 2 3 2H20C20.6 2 21 2.4 21 3V6C21 6.6 20.6 7 20 7Z" fill="black" />
+												</svg>											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">Courses</span>
+									</a>
+								</div>
 
-			
 
 								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 									<span class="menu-link">
@@ -132,6 +162,8 @@
 										<span class="menu-title"> Programs</span>
 									</a>
 								</div>
+
+
 								<div class="menu-item">
 									<a class="menu-link" href="{{ url('/reports')}}">
 										<span class="menu-icon">
@@ -219,7 +251,7 @@
 													<div class="menu-content d-flex align-items-center px-3">
 														<!--begin::Avatar-->
 														<div class="symbol symbol-50px me-5">
-															<img alt="Logo" src="{{ asset('assets/media/avatars/150-26.jpg') }}" />
+															<img  style="border-radius: 50%" alt="Logo" src="{{ asset('assets/media/avatars/150-26.jpg') }}" />
 														</div>
 														<!--end::Avatar-->
 														<!--begin::Username-->
@@ -303,17 +335,57 @@
 			<!--end::Svg Icon-->
 		</div>
 		
-<script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
-<script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
-<!--end::Global Javascript Bundle-->
-<!--begin::Page Vendors Javascript(used by this page)-->
-<script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
-<!--end::Page Vendors Javascript-->
-<!--begin::Page Custom Javascript(used by this page)-->
-<script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
-<script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
-<script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
-<script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
-	</body>
+		<script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
+		<script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Page Vendors Javascript(used by this page)-->
+		<script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
+		<!--end::Page Vendors Javascript-->
+		<script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+
+		<!--begin::Page Custom Javascript(used by this page)-->
+		<script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
+		<script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
+		<script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
+		<script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
+
+     <script>
+                @if(Session::has('success'))
+                toastr.options =
+                {
+                   "closeButton" : true,
+                   "progressBar" : true
+                }
+                toastr.success("{{ session('success') }}");
+                @endif
+
+                @if(Session::has('error'))
+                toastr.options =
+                {
+                "closeButton" : true,
+                "progressBar" : true
+                }
+                toastr.error("{{ session('error') }}");
+                @endif
+
+                @if(Session::has('info'))
+                toastr.options =
+                {
+                "closeButton" : true,
+                "progressBar" : true
+                }
+                toastr.info("{{ session('info') }}");
+                @endif
+
+                @if(Session::has('warning'))
+                toastr.options =
+                {
+                "closeButton" : true,
+                "progressBar" : true
+                }
+                toastr.warning("{{ session('warning') }}");
+                @endif
+            </script>
+</body>
 	<!--end::Body-->
 </html>

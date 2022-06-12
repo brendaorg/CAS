@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboadController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,12 +29,36 @@ Route::get('/reports',[AttendanceController::class,'reports']);
 Route::get('/users/staffs',[UserController::class,'users']);
 Route::get('/users/students',[UserController::class,'students']);
 Route::get('/programs',[ProgramController::class,'index']);
+Route::get('/createprograms',[ProgramController::class,'createprograms']);
+Route::post('/createPrograms',[ProgramController::class,'storePrograms']);
+Route::get('/program/edit/{program_id}',[ProgramController::class,'editprograms']);
+Route::post('/updateProgram',[ProgramController::class,'updateProgram']);
 
 Route::get('/',[UserController::class,'loginform']);
 Route::get('/register',[UserController::class,'registerStudent']);
+Route::post('/createstudent',[UserController::class,'createStudent']);
 
 
-// Route::post('/createStaff',[UserController::class,'registerStaff']);
+Route::get('/courses',[CourseController::class,'index']);
+Route::get('/createcourses',[CourseController::class,'createcourses']);
+Route::get('/course/edit/{course_id}',[CourseController::class,'editcourses']);
+Route::get('/course/show/{course_id}',[CourseController::class,'showcourses']);
+Route::post('/addcourse',[CourseController::class,'storeCourse']);
+Route::post('/edit_courses',[CourseController::class,'editCourse']); 
+
+Route::post('/searchattendance',[CourseController::class,'searchAttendance']); 
+
+Route::get('/set_table',[CourseController::class,'setCourseTimetable']); 
+Route::get('/createTimetable',[CourseController::class,'createCourseTimetable']); 
+Route::post('/createcoursesTimetable',[CourseController::class,'storeTimetable']); 
+
+
+Route::get('/timetable/edit/{course_id}',[CourseController::class,'editTimetable']); 
+Route::get('/timetable/show/{course_id}',[CourseController::class,'showTimetable']); 
+Route::post('/editcoursesTimetable',[CourseController::class,'editcoursesTimetable']); 
+
+
+
 Route::post('/login',[UserController::class,'login']);
 
 Route::group(['middleware' => ['auth']], function() {

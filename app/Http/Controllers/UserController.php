@@ -19,32 +19,36 @@ class UserController extends Controller {
 	}
 
 	public function students(){
-		return view('layouts/students');
+	    $data['users'] = \App\Models\User::join('programs', 'programs.id', '=', 'users.program_id')->where('users.status','=','1')->where('users.usertype','=','Student')->paginate(10);
+		return view('layouts/students',$data);
 	}
 
 	public function registerStudent(){
-		return view('auth/register');
+		$this->data['programs'] = \App\Models\Program::all();
+		return view('auth/register',$this->data);
 	}
 
 	public function userRules(){
 		$data = request()->validate([
             'first_name' => 'required|string',
-			'middle_name'=>'string',
             'last_name' => 'required|string',
             'email' =>  'required|email|string|unique:users,email',
 			'program_id' => 'required|integer|exists:programs,id',
 			'registration_number' => 'required|string|unique:users',
 			'gender' => 'required|string',
-			'password' => ['required','confirmed',Rules\Password::min(8)->mixedCase()->numbers()->symbols()]
+			'password' => ['required',Rules\Password::min(6)->mixedCase()->numbers()->symbols()]
 		]);
 		return $data;
 	}
 
-	public function register(){
-	    $data = $this->userRules();
+	
+
+	public function createStudent(){
+	     $data = $this->userRules();
+	     $cas_id = $this->generateNumber();
 		$user = \App\Models\User::create([
             'first_name'  => $data['first_name'],
-            'middle_name' => $data['middle_name'],
+            'middle_name' => $data['middle_name'] ?? '',
             'last_name'   => $data['last_name'],
             'email'       => $data['email'],
 			'usertype'    => 'Student',
@@ -52,10 +56,16 @@ class UserController extends Controller {
             'program_id'  => $data['program_id'],
 			'status'      => 1,
             'registration_number' => $data['registration_number'],
-            'password'    => bcrypt($data['password'])
+            'password'    => bcrypt($data['password']),
+            'cas_id'      => $cas_id
         ]);
-		// $this->sendEmailAndSms($request);
-        return redirect('users/index')->with('success', 'User ' .  $data['first_name'] . ' created successfully');
+        return redirect('/')->with('success', 'User ' .  $data['first_name'] . ' created successfully');
+	}
+
+	private function generateNumber()
+	{
+        $cas_id = \collect(\DB::select("select max(cas_id) as max_cas from users  where usertype = 'Student' "))->first();
+        return (int)$cas_id->max_cas + 1;
 	}
 
 

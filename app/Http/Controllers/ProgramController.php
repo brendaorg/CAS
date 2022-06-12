@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ProgramController extends Controller
@@ -13,19 +13,30 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        return view('layouts/programs');
+        $this->data['programs'] = \App\Models\Program::all();
+        return view('layouts/programs',$this->data);
     }
 
    
-    public function create()
+    public function createprograms()
     {
-        //
+
+        return view('layouts/createprograms');
     }
 
    
-    public function store(Request $request)
+    public function storePrograms(Request $request)
     {
-        //
+        $data = request()->validate([
+            'program_name' => 'required|string',
+			'program_code'=>'required|string',
+            'program_time' => 'required',
+            'program_type' =>  'required|string',
+		]);
+        $uuid = Str::uuid()->toString();
+        $array_data = array_merge(['uuid'=>$uuid],$data);
+		 \App\Models\Program::create($array_data);
+        return redirect('/programs')->with('Created successfully');
     }
 
     /**
@@ -45,9 +56,11 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function editprograms($id)
+    { 
+		$this->data['program'] = \App\Models\Program::find($id);
+        return view('layouts/editprogram',$this->data);
+        
     }
 
     /**
@@ -57,9 +70,14 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateProgram()
     {
-        //
+          $data = request()->all();
+          $program_id = request('program_id');
+          
+		 \App\Models\Program::find($program_id)->update($data);
+         return redirect('/programs')->with('Edited successfully');
+         
     }
 
     /**
