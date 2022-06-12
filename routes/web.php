@@ -97,7 +97,9 @@ Route::post('/pickcourse',[UserController::class,'studentCourses']);
 Route::post('/searchCourse',[DashboadController::class,'studentSearchCourse']);  
 
 
-Route::get('/sendapi/{user_id}',[ApiController::class,'student']);  
+Route::get('/sendapi/{user_id}',[ApiController::class,'student']);   
+Route::get('/profile' ,[UserController::class,'userProfile']);   
+Route::post('/resetPassword' ,[UserController::class,'resetPassword']);   
 
 
 });

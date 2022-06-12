@@ -28,7 +28,6 @@
                  <span class="text-danger">{{ $errors->first('password') }}</span>
              @endif
              
-              <a href="../../demo1/dist/authentication/layouts/basic/password-reset.html" class="link-success fs-6 fw-bolder">Forgot Password ?</a>
         </div>
         <div class="text-center">
             <button  type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-success w-100 mb-5">

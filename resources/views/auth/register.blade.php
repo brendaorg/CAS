@@ -3,11 +3,9 @@
 
 <div class="w-lg-900px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
 <h1 class="text-center">CLASS ATTENDANCE SYSTEM</h1>
-   
 
     <form class="form w-160" novalidate="novalidate" action="/createstudent" method="POST">
         @csrf
-        
         <div class="mb-10 text-center">
               <a href="#" class="mb-18">
 				 <img alt="Logo" src="assets/media/logos/bg-1.png" class="h-100px " />
@@ -16,7 +14,6 @@
             <div class="text-gray-400 fw-bold fs-4">Already have an account?
             <a href="{{ url('/')}}" class="link-primary fw-bolder">Sign in here</a></div>
         </div>
-
 
         <div class="row fv-row mb-7">
             <div class="col-xl-4">
