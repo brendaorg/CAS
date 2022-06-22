@@ -25,7 +25,7 @@
             <h3>Degree/Diploma Programs</h3>
         </div>
         <div class="card-toolbar">
-            <a href="/createprograms" class="btn btn-sm btn-primary my-1">Add new program</a>
+            <a href="/createprograms" class="btn btn-sm btn-info my-1">Add new program</a>
         </div>
     </div>
   
@@ -50,16 +50,16 @@
                     <tr>
                         <td><?= $index +1 ?></td>
                         <td>
-                            <a href="#" class="text-hover-primary text-gray-600"><?= $program->program_name ?></a>
+                            <a href="#" class="text-hover-info text-gray-600"><?= $program->program_name ?></a>
                         </td>
                         <td>
-                            <span class="badge badge-light-success fs-7 fw-bolder"><?= $program->program_type ?></span>
+                            <span class="badge badge-light-info fs-7 fw-bolder"><?= $program->program_type ?></span>
                         </td>
                         <td> <?= $program->program_time ?> Years</td>
                         <td><?= $program->program_code ?></td>
                         <td>
                             <?php $edit_url = "program/edit/$program->id"; $show_url = "program/show/$program->id"; ?>
-                            <a href="<?= url($edit_url) ?>" class="menu-link px-3 btn btn-primary" data-kt-users-table-filter="delete_row">Edit</a>
+                            <a href="<?= url($edit_url) ?>" class="menu-link px-3 btn btn-info" data-kt-users-table-filter="delete_row">Edit</a>
                        <!--  <a href="<?= url($show_url) ?>" class="menu-link px-3 btn btn-info" data-kt-users-table-filter="delete_row">view</a>
  -->                    </td>
                     </tr>

@@ -1,6 +1,5 @@
 @extends('auth.base')
 @section('content')
-
 <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
     <!--begin::Form-->
 <h1 class="text-center">CLASS ATTENDANCE SYSTEM</h1>
@@ -9,11 +8,8 @@
         @csrf
 
         <div class="text-center mb-10">
-
-            <!--begin::Title-->
-
               <a href="#" class="mb-18">
-				 <img alt="Logo" src="assets/media/logos/bg-1.png" class="h-150px " />
+				 <img alt="Logo" src="assets/media/logos/bg-1.png" class="h-140px " />
 			 </a>
         </div>
 
@@ -32,14 +28,13 @@
                  <span class="text-danger">{{ $errors->first('password') }}</span>
              @endif
 
-              <a href="../../demo1/dist/authentication/layouts/basic/password-reset.html" class="link-success fs-6 fw-bolder">Forgot Password ?</a>
         </div>
         <div class="text-center">
-            <button  type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-success w-100 mb-5">
+            <button  type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-info w-100 mb-5">
                 Sign in
             </button>
             <div class="text-gray-400 fw-bold fs-4">New Here?
-            <a href="{{ url('/register')}}" class="link-success fw-bolder">Register</a></div>
+            <a href="{{ url('/register')}}" class="link-info fw-bolder">Register</a></div>
         </div>
     </form>
     <!--end::Form-->

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Validation\Rules;
+use Illuminate\Http\Request;
+
 
 class UserController extends Controller {
     
@@ -20,7 +22,7 @@ class UserController extends Controller {
 
 	public function students(){
 	    $data['users'] = \App\Models\User::join('programs', 'programs.id', '=', 'users.program_id')
-		->where('users.status','=','1')->where('users.usertype','=','Student')->select('users.*','programs.id as program_id')
+		->where('users.status','=','1')->where('users.usertype','=','Student')->select('users.*','programs.id as program_id','programs.program_name')
 		->paginate(10);
 		return view('layouts/students',$data);
 	}
@@ -124,14 +126,24 @@ class UserController extends Controller {
 
     
 
-	public function resetPassword(){
-		$id = request('user_id');
-        $pass = 'cas_' . rand(32323, 443434344) . '';
-        $user = \App\Models\User::find($id);
-        $user->update(['password' => bcrypt($pass)]);
-        $content = 'Hello ' . $user->name() . ' Your password has been updated. Kindly login  with email ' . $user->email . ' and password ' . $pass;
-        $this->sendEmail($user, $content);
-        return redirect()->back()->with('success', 'Password sent successfully');
+	public function resetPassword(Request $request){
+		$user = \App\Models\User::find(\Auth::user()->id);
+        if (\Auth::attempt(['email' => $user->email, 'password' => request('Oldpassword')])) {
+            $new1 = request('newpassword');
+            $new2 = request('confirm_password');
+            if ($new1 != $new2) {
+                return redirect()->back()->with('error', 'New password and confirmed one  do not match');
+            }
+            $this->validate(request(), [
+                'newpassword' => 'required|string|min:6'
+                    ], ['Password must be 6–30 characters, and include a number, a symbol, a lower and a upper case letter']);
+            $user->update(['password' => bcrypt($new1)]);
+            return redirect()->back()->with('success', 'Password changed successfully');
+        } else {
+            return redirect()->back()->with('error', 'Current Password is not valid');
+        }
+        return redirect()->back()->with('success', 'Password Updated successfully');
+
 	}
    
 
@@ -170,4 +182,12 @@ class UserController extends Controller {
         return redirect()->back()->with('success', 'Updated successfully');
 
     }
+
+
+	public function userProfile(){
+		$data['stdprofile'] = \DB::table('users')->leftJoin('programs','programs.id','=','users.program_id')->select('users.*','programs.program_name')->where('users.id',\Auth::user()->id)->first();
+		$data['courses'] = \DB::table('student_courses')
+		->where('student_courses.student_id',\Auth::user()->id)->get();
+		return view('layouts/profile',$data);
+	}
 }

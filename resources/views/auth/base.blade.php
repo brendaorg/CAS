@@ -41,17 +41,11 @@
 		<script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
 		<!--end::Global Javascript Bundle-->
 
-		<script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-		<script src="{{ asset('assets/assets/js/custom/apps/customers/list/export.js') }}"></script>
-		<script src="{{ asset('assets/js/custom/apps/customers/list/list.js') }}"></script>
 		<script src="{{ asset('assets/js/custom/apps/customers/add.js') }}"></script>
 		<script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
-		<script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
-		<script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
-		<script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
 
 		<script>
-			      @if(Session::has('success'))
+			 @if(Session::has('success'))
                 toastr.options =
                 {
                    "closeButton" : true,
