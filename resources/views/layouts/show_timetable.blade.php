@@ -1,8 +1,6 @@
 @extends('layouts.base')
 @section('content')
 
-<script type="text/javascript"  src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
 <div class="post d-flex flex-column-fluid" id="kt_post">
      <div class="toolbar" id="kt_toolbar">
@@ -19,15 +17,51 @@
 
     
      <div class="flex-lg-row-fluid ms-lg-10">
-       <div class="card card-flush mb-6 mb-xl-9">
-        <div class="card-header pt-5">
-            <div class="card-toolbar">
-
-            </div>
-        </div>
-      </div>
+         <div class="card mb-5 mb-lg-10">
+                                    <!--begin::Card header-->
+                                    <div class="card-header">
+                                        <!--begin::Heading-->
+                                        <div class="card-title">
+                                            <h3>Class Sessions for   <?= $name ?></h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-flush align-middle table-row-bordered table-row-solid gy-4 gs-9">
+                                                <thead class="border-gray-200 fs-5 fw-bold bg-lighten">
+                                                    <tr>
+                                                        <th class="min-w-250px">Location</th>
+                                                        <th class="min-w-100px">Date</th>
+                                                        <th class="min-w-150px">Time(Hours)</th>
+                                                    </tr>
+                                                </thead>
+                                                <!--end::Thead-->
+                                                <!--begin::Tbody-->
+                                                <tbody class="fw-6 fw-bold text-gray-600">
+                                                   @foreach($courses as $key => $value)
+                                                    <tr>
+                                                        <td>
+                                                            <a href="#" class="text-hover-primary text-gray-600">
+                                                              <?= $value->venue_name ?>
+                                                           </a>
+                                                        </td>
+                                                         <td><?= date('d-m-Y', strtotime($value->date)) ?> </td>
+                                                        <td> <?= $value->periodic_time?></td>
+                                                    </tr>
+                                                    @endforeach
+                                              </tbody>
+                                                <!--end::Tbody-->
+                                            </table>
+                                            <!--end::Table-->
+                                        </div>
+                                        <!--end::Table wrapper-->
+                                    </div>
+                                    <!--end::Card body-->
+                                </div>
    </div>
 
+
+                              
 
 
 

@@ -13,17 +13,16 @@ class ApiController extends Controller
     }
 
 
-     public function students(){
-    $students = \App\Models\User::where(['usertype'=>'Student'])->whereNotNull('cas_id')
-    ->get(['cas_id as attendance_id','first_name','last_name']);
-
+     public function student($user_id){
+       $students = \App\Models\User::where(['usertype'=>'Student','id'=>$user_id])->whereNotNull('cas_id')
+     ->get(['cas_id as attendance_id','first_name','last_name']);
          return [
-            'students' => \App\Http\Resources\UserResource::collection($students)
+            'student' => \App\Http\Resources\UserResource::collection($students)
         ];
+		return view('layouts/students',$data);
     }
 
 
-   
      public function postAttendances(){
           $user_id = request('user_id'); 
           $date = date('Y-m-d'); 
@@ -33,9 +32,7 @@ class ApiController extends Controller
    
          $user = \DB::table('users')->where('id',$user_id)->where('usertype','=','Student')->first();
          if($user){
-                 
                 $response = \App\Models\Attendance::create(array('user_id'=>$user_id,'date'=>$date,'timein'=>$timein,'course_id'=>$course_id,'status'=>$status));
-         
                  if($response){
                      return json_encode(array('status'=>'1','message'=>'Successfully'));
                  } else{

@@ -20,6 +20,14 @@
 		<link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+
+
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css" integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/jquery.dataTables.min.css" integrity="sha512-1k7mWiTNoyx2XtmI96o+hdjP8nn0f3Z2N4oF/9ZZRgijyV4omsKOXEnqL1gKQNPy2MTSP9rIEWGcH/CInulptA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet"  href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css"/>
+
+
 		<!--end::Global Stylesheets Bundle-->
 	</head>
 	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
@@ -63,7 +71,7 @@
 									</div>
 								</div>
 
-								<?php if(\Auth::user()->usertype == 'Admin') { ?>
+								<?php if(\Auth::user()->usertype == 'Student') { ?>
 								<div class="menu-item">
 									<a class="menu-link" href="{{ url('/dashboard/home')}}">
 										<span class="menu-icon">
@@ -81,9 +89,39 @@
 										<span class="menu-title">Home</span>
 									</a>
 								</div>
-							  <?php } ?>
+							
+
+
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+							  <?php } else { ?>
+
+							  	<div class="menu-item">
+									<a class="menu-link" href="{{ url('/dashboard/home')}}">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+													<rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
+													<rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
+													<rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">Home</span>
+									</a>
+								</div>
+
+							<?php } ?>
                                  
-                                 	<div class="menu-item">
+							<?php if(\Auth::user()->usertype <> 'Student') { ?>
+                                 <div class="menu-item">
 									<a class="menu-link" href="{{ url('/set_table')}}">
 										<span class="menu-icon">
 											<span class="svg-icon svg-icon-2">
@@ -96,6 +134,7 @@
 										<span class="menu-title">Set timetable</span>
 									</a>
 								</div>
+
 
 									<div class="menu-item">
 									<a class="menu-link" href="{{ url('/courses')}}">
@@ -128,6 +167,8 @@
 										<span class="menu-arrow"></span>
 									</span>
 									<div class="menu-sub menu-sub-accordion">
+
+						           	<?php if(\Auth::user()->usertype <> 'Admin') { ?>
 										<div class="menu-item">
 											<a class="menu-link" href="{{ url('/users/staffs')}}">
 												<span class="menu-bullet">
@@ -136,6 +177,8 @@
 												<span class="menu-title">Staff</span>
 											</a>
 										</div>
+								     <?php } ?>
+
 										<div class="menu-item">
 											<a class="menu-link" href="{{ url('/users/students')}}">
 												<span class="menu-bullet">
@@ -147,7 +190,7 @@
 									
 									</div>
 								</div>
-
+                              
 
 								<div class="menu-item">
 									<a class="menu-link" href="{{ url('/programs')}}">
@@ -186,7 +229,8 @@
 						<!--end::Aside Menu-->
 					</div>
 				</div>
-
+			   <?php } ?>
+               
 
 				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
 					<!--begin::Header-->
@@ -242,47 +286,31 @@
 										<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
 											<!--begin::Menu wrapper-->
 											<div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-												<img src="{{ asset('assets/media/avatars/150-26.jpg') }}" alt="user" />
+												<img src="{{ asset('assets/media/avatars/blank.png') }}" alt="user" />
 											</div>
 											<!--begin::Menu-->
 											<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
 												<!--begin::Menu item-->
 												<div class="menu-item px-3">
 													<div class="menu-content d-flex align-items-center px-3">
-														<!--begin::Avatar-->
-														<div class="symbol symbol-50px me-5">
-															<img  style="border-radius: 50%" alt="Logo" src="{{ asset('assets/media/avatars/150-26.jpg') }}" />
-														</div>
-														<!--end::Avatar-->
-														<!--begin::Username-->
+														
 														<div class="d-flex flex-column">
 															<div class="fw-bolder d-flex align-items-center fs-5"><?= \Auth::user()->name() ?>
 														</div>
 															<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?= \Auth::user()->email ?></a>
 														</div>
-														<!--end::Username-->
 													</div>
 												</div>
-												<!--end::Menu item-->
-												<!--begin::Menu separator-->
 												<div class="separator my-2"></div>
-												<!--end::Menu separator-->
-												<!--begin::Menu item-->
 												<div class="menu-item px-5">
 													<a href="#" class="menu-link px-5">My Profile</a>
 												</div>
 											
-											
-										
-			
 												<div class="menu-item px-5">
 													<a href="{{ url('/logout')}}" class="menu-link px-5">Logout</a>
 												</div>
 											
-												<!--end::Menu item-->
 											</div>
-											<!--end::Menu-->
-											<!--end::Menu wrapper-->
 										</div>
 										<!--end::User -->
 										<!--begin::Heaeder menu toggle-->
@@ -342,7 +370,12 @@
 		<script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
 		<!--end::Page Vendors Javascript-->
 		<script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.bootstrap4.min.js" integrity="sha512-OQlawZneA7zzfI6B1n1tjUuo3C5mtYuAWpQdg+iI9mkDoo7iFzTqnQHf+K5ThOWNJ9AbXL4+ZDwH7ykySPQc+A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 		<!--begin::Page Custom Javascript(used by this page)-->
 		<script src="{{ asset('assets/js/custom/widgets.js') }}"></script>
 		<script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
@@ -385,6 +418,89 @@
                 }
                 toastr.warning("{{ session('warning') }}");
                 @endif
+
+
+				data_table = function () {
+        $('.dataTable').DataTable({
+            dom: 'Bfrtip',
+            
+            responsive: true,
+            columnDefs: [
+            {
+                targets: 1,
+                className: 'noVis'
+            }
+        ],
+        
+            buttons: [
+                {
+                    text: 'PDF',
+                    extend: 'pdfHtml5',
+                    message: '',
+                    orientation: 'landscape',
+                    exportOptions: {
+                        columns: [ 0, ':visible' ]
+                    },
+                    
+                    customize: function (doc) {
+                        // Remove spaces around page title
+                        doc.content[0].text = doc.content[0].text.trim();
+                      
+                        // Styling the table: create style object
+                        var objLayout = {};
+                        // Horizontal line thickness
+                        objLayout['hLineWidth'] = function (i) {
+                            return .5;
+                        };
+                        // Vertikal line thickness
+                        objLayout['vLineWidth'] = function (i) {
+                            return .5;
+                        };
+                        // Horizontal line color
+                        objLayout['hLineColor'] = function (i) {
+                            return '#aaa';
+                        };
+                        // Vertical line color
+                        objLayout['vLineColor'] = function (i) {
+                            return '#aaa';
+                        };
+                        // Left padding of the cell
+                        objLayout['paddingLeft'] = function (i) {
+                            return 4;
+                        };
+                        // Right padding of the cell
+                        objLayout['paddingRight'] = function (i) {
+                            return 4;
+                        };
+                        // Inject the object in the document
+                        doc.content[1].layout = objLayout;
+                    }
+                },
+               
+             {extend: 'copyHtml5',exportOptions: {
+                        columns: [ 0, ':visible' ]
+                    }, footer: true},
+                {extend: 'excelHtml5', exportOptions: {
+                        columns: [ 0, ':visible' ]
+                    },footer: true},
+                {extend: 'csvHtml5',exportOptions: {
+                        columns: [ 0, ':visible' ]
+                    }, customize: function (csv) {
+                        return "ShuleSoft" + csv + "ShuleSoft";
+                    }},
+                {extend: 'print',exportOptions: {
+                        columns: [ 0, ':visible' ]
+                    }, footer: true, },
+                {
+                extend: 'colvis',
+                columns: ':not(.noVis)'
+            },
+            
+
+            ]
+        });
+     
+    }
             </script>
 </body>
 	<!--end::Body-->

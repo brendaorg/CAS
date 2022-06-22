@@ -3,13 +3,14 @@
 
 <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
     <!--begin::Form-->
+<h1 class="text-center">CLASS ATTENDANCE SYSTEM</h1>
+
     <form class="form w-100" novalidate="novalidate" method="POST" action="/login">
         @csrf
 
         <div class="text-center mb-10">
 
             <!--begin::Title-->
-            <h1>CLASS ATTENDANCE SYSTEM</h1>
 
               <a href="#" class="mb-18">
 				 <img alt="Logo" src="assets/media/logos/bg-1.png" class="h-150px " />
@@ -30,7 +31,7 @@
             @if ($errors->has('password'))
                  <span class="text-danger">{{ $errors->first('password') }}</span>
              @endif
-             
+
               <a href="../../demo1/dist/authentication/layouts/basic/password-reset.html" class="link-success fs-6 fw-bolder">Forgot Password ?</a>
         </div>
         <div class="text-center">

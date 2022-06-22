@@ -73,7 +73,7 @@
                  </tr>
                 </thead>
                 <tbody class="fw-bold text-gray-600">
-
+                       @if(isset($courses))
                        @foreach($courses as $index => $course)
 
                         <tr>
@@ -84,16 +84,13 @@
                             <td>
                                 <span class="badge badge-light-success fs-7 fw-bolder"><?= $course->course_code ?></span>
                             </td>
-                            <td> <?= $course->periodic_time ?> Years</td>
+                            <td> <?= $course->periodic_time ?> hrs</td>
                             <td><?= $course->venue_name ?? '' ?></td>
 
                                <td class="text-end">
                                     <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                                                         
                                     </a>
-                                    <!--begin::Menu-->
                                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
-                                        <!--begin::Menu item-->
                                         <div class="menu-item px-3">
                                              <?php  $show_url = "course/show/$course->id"; ?>
                                              <a href="<?= url($show_url) ?>" class="menu-link px-3 btn btn-" data-kt-users-table-filter="delete_row">view</a>
@@ -108,13 +105,11 @@
 
                              </tr>
                          @endforeach
-                                                           
+                         @endif
                    </tbody>
-                <!--end::Table body-->
             </table>
-         {!! $courses->render() !!}
+              {!! $courses->render() !!}
 
-            <!--end::Table-->
         </div>
     </div>
    

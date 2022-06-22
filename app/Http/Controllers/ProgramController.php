@@ -74,9 +74,8 @@ class ProgramController extends Controller
     {
           $data = request()->all();
           $program_id = request('program_id');
-          
 		 \App\Models\Program::find($program_id)->update($data);
-         return redirect('/programs')->with('Edited successfully');
+         return redirect('/programs')->with('success','Edited successfully');
          
     }
 
