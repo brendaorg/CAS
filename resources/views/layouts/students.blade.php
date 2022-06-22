@@ -31,7 +31,7 @@
                     </div>
                 
                 </div>
-                <div class="card-body pt-0">
+                <div class="card-body pt-0 table-responsive">
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
                         <thead>
                             <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
@@ -39,13 +39,14 @@
                                    #
                                 </th>
                                 <th class="min-w-125px">FULL NAME</th>
-                                <th class="min-w-125px">EMAIL</th>
                                 <th class="min-w-125px">JOIN DATE</th> 
                                 <th class="min-w-125px">GENDER</th> 
                                 <th class="min-w-125px">REGISTRATION No</th> 
                                 <th class="min-w-125px">PROGRAM</th> 
+                             <?php if(\Auth::user()->usertype=='Admin') { ?>
                                 <th class="min-w-125px">ATTENDANCE ID</th> 
                                 <th class="min-w-125px">STATUS</th> 
+                            <?php } ?>
                             </tr>
                         </thead>
                         
@@ -63,10 +64,7 @@
                                      <?= $user->first_name .' '. $user->last_name ?>
                                 </td>
 
-                                <td class="align-items-center">
-                                     <?= $user->email ?>
-                                </td>
-                             
+                                                          
                                 <td class="align-items-center">
                                     <div class="badge badge-light fw-bolder"><?= date('d,M,Y',strtotime($user->created_at)) ?></div>
                                 </td>
@@ -81,20 +79,22 @@
                                      <?= $user->program_name ?>                              
                                 </td>
 
+                             <?php if(\Auth::user()->usertype=='Admin') { ?>
                                  <td class="text-start">
-                                     <?= $user->cas_id ?? ''?>                              
+                                     <?= $user->id ?? ''?>                              
                                 </td>
 
-                                <td class="text-start">
+                                <td class="text-center">
                                     <?php $count_ = \DB::table('attendances')->where('user_id',(int)$user->id)->count();  { ?>
                                      <?php if($count_ > 0) { ?>
-                                      <span class="badge badge-light-primary fw-bolder me-auto px-4 py-3">  REGISTERED</span>
+                                      <span class="badge badge-light-info fw-bolder me-auto px-4 py-3">  REGISTERED</span>
                                     <?php } else { ?>
-                                        <a href="<?= url('/sendapi'.'/'. $user->id) ?>"  target="_break" class="badge badge-light-success  me-auto px-4 py-3">  REGISTER</a>
+                                        <a href="<?= url('/sendapi'.'/'. $user->id) ?>" class="badge badge-light-info  me-auto px-4 py-3">  REGISTER</a>
                                      <?php } ?>
                                      <?php } ?>
                                 </td>
-
+                              <?php } ?>
+                              
                             </tr>
                           @endforeach
                         </tbody>

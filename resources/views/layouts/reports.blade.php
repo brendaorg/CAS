@@ -5,7 +5,8 @@
     <div class="toolbar" id="kt_toolbar">
         <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
             <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
-                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Students List</h1>
+                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
+                  <?= isset($details) ? 'Students List on '.$details->course_name : 'Students List' ?> </h1>
                 <span class="h-20px border-gray-200 border-start mx-4"></span>
             </div>
         </div>
@@ -29,6 +30,7 @@
                         </span>
 
                         <select class="form-control form-control-solid ps-10" name="course"  required>
+                             <option value="0">Choose Class </option>
                             @foreach($courses as $course)
                               <option value="<?= $course->id ?>"> <?= $course->course_name ?> </option>
                             @endforeach
@@ -36,7 +38,7 @@
 
                     </div>
                     <div class="d-flex align-items-center">
-                        <button type="submit" class="btn btn-primary me-5">Search </button>
+                        <button type="submit" class="btn btn-info me-5">Search </button>
                     </div>
                 </div>
              
@@ -65,10 +67,31 @@
                             <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Search student" />
                         </div>
                     </div>
-                
                 </div>
-                <!--end::Card header-->
-                <!--begin::Card body-->
+
+
+
+                <?php 
+                    function test2($course_id,$id){
+                        $timetables = \DB::table('course_timetable')->where('course_id',$course_id)->get();
+                         $dates = array();
+                    foreach($timetables as $key => $value){
+                      $dates[] = $value->date;
+                   }
+                  $attendances = \App\Models\User::leftJoin('attendances', 'users.id', '=', 'attendances.user_id')
+                  ->join('programs', 'programs.id', '=', 'users.program_id')->whereIn('attendances.date',$dates)->where('users.status','=','1')->where('users.usertype','=','Student')->where('users.id','=',$id)->get(['attendances.*']);
+                   return count($attendances);
+                  }
+
+                   function test($course_id){
+                    $total = \DB::table('course_timetable')->join('student_courses','student_courses.course_id', '=', 'course_timetable.course_id')->where('course_timetable.course_id',$course_id)->count();
+                      return $total > 0 ? $total : 1;
+                      
+                   }
+
+                  
+
+                ?>
                 <div class="card-body pt-0">
                     <!--begin::Table-->
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
@@ -80,14 +103,13 @@
                                    #
                                 </th>
                                 <th class="min-w-125px">FULL NAME</th>
-                                <th class="min-w-125px">EMAIL</th>
-                                <th class="min-w-125px">JOIN DATE</th> 
                                 <th class="min-w-125px">GENDER</th> 
                                 <th class="min-w-125px">REGISTRATION No</th> 
                                 <th class="min-w-125px">PROGRAM</th> 
-                                <th class="min-w-125px">ATTENDANCE ID</th> 
+                                <th class="min-w-125px">ATTENDED CLASSES</th> 
+                                <th class="min-w-125px">TOTAL CLASSES</th> 
+                                <th class="min-w-125px">PERCENTAGE</th> 
                             </tr>
-                            <!--end::Table row-->
                         </thead>
                         
                         @if(isset($users))
@@ -104,13 +126,6 @@
                                      <?= $user->first_name .' '. $user->last_name ?>
                                 </td>
 
-                                <td class="align-items-center">
-                                     <?= $user->email ?>
-                                </td>
-                             
-                                <td class="align-items-center">
-                                    <div class="badge badge-light fw-bolder"><?= date('d,M,Y',strtotime($user->created_at)) ?></div>
-                                </td>
                              
                                 <td class="align-items-start"><?= strtoupper($user->gender) ?></td>
 
@@ -122,9 +137,18 @@
                                      <?= $user->program_name ?>                              
                                 </td>
 
-                                 <td class="text-start">
-                                     <?= $user->cas_id ?? ''?>                              
+                                <td class="text-start">
+                                     <?php $classes = test2($course_id,$user->student_id); echo $classes?>                              
                                 </td>
+
+                                  <td class="text-start">
+                                     <?= test($course_id)?>                              
+                                   </td>
+
+                                 <td class="text-start">
+                                     <?=  number_format($classes/test($course_id),2).'%' ?>                              
+                                </td>
+
 
                             </tr>
                           @endforeach
@@ -132,7 +156,7 @@
 
                         @endif
                     </table>
-                         {!! $users->render() !!}
+                    {!! $users->render() !!}
 
                 </div>
 

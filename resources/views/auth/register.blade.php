@@ -8,11 +8,11 @@
         @csrf
         <div class="mb-10 text-center">
               <a href="#" class="mb-18">
-				 <img alt="Logo" src="assets/media/logos/bg-1.png" class="h-100px " />
+				 <img alt="Logo" src="assets/media/logos/bg-1.png" class="h-120px " />
 			 </a>
             <h1 class="text-dark mb-3">Create an Account(Students)</h1>
             <div class="text-gray-400 fw-bold fs-4">Already have an account?
-            <a href="{{ url('/')}}" class="link-primary fw-bolder">Sign in here</a></div>
+            <a href="{{ url('/')}}" class="link-info fw-bolder">Sign in here</a></div>
         </div>
 
         <div class="row fv-row mb-7">
@@ -85,7 +85,7 @@
      </div>
 
         <div class="text-center">
-            <button type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-primary">
+            <button type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-info">
                 <span class="indicator-label">Submit</span>
             </button>
         </div>

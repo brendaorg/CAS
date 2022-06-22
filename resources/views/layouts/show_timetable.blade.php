@@ -41,7 +41,7 @@
                                                    @foreach($courses as $key => $value)
                                                     <tr>
                                                         <td>
-                                                            <a href="#" class="text-hover-primary text-gray-600">
+                                                            <a href="#" class="text-hover-info text-gray-600">
                                                               <?= $value->venue_name ?>
                                                            </a>
                                                         </td>

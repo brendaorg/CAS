@@ -22,7 +22,7 @@ class UserController extends Controller {
 
 	public function students(){
 	    $data['users'] = \App\Models\User::join('programs', 'programs.id', '=', 'users.program_id')
-		->where('users.status','=','1')->where('users.usertype','=','Student')->select('users.*','programs.id as program_id')
+		->where('users.status','=','1')->where('users.usertype','=','Student')->select('users.*','programs.id as program_id','programs.program_name')
 		->paginate(10);
 		return view('layouts/students',$data);
 	}
@@ -127,7 +127,6 @@ class UserController extends Controller {
     
 
 	public function resetPassword(Request $request){
-	
 		$user = \App\Models\User::find(\Auth::user()->id);
         if (\Auth::attempt(['email' => $user->email, 'password' => request('Oldpassword')])) {
             $new1 = request('newpassword');
@@ -187,6 +186,8 @@ class UserController extends Controller {
 
 	public function userProfile(){
 		$data['stdprofile'] = \DB::table('users')->leftJoin('programs','programs.id','=','users.program_id')->select('users.*','programs.program_name')->where('users.id',\Auth::user()->id)->first();
+		$data['courses'] = \DB::table('student_courses')
+		->where('student_courses.student_id',\Auth::user()->id)->get();
 		return view('layouts/profile',$data);
 	}
 }

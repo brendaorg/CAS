@@ -15,7 +15,6 @@
                         <!--begin::Form-->
                         <form action="/addcourse" class="form mb-15" method="post" id="kt_contact_form">
                             @csrf
-
                         <h1 class="fw-bolder text-dark mb-9">Courses</h1>
                         <div class="row mb-5">
                             <div class="col-md-3 fv-row">
@@ -49,7 +48,7 @@
                             </div>
                             </div>
                       
-                        <button type="submit" class="btn btn-primary" id="kt_contact_submit_button">
+                        <button type="submit" class="btn btn-info" id="kt_contact_submit_button">
                             Submit
                         </button>
                         </form>

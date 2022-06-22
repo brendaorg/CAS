@@ -41,7 +41,7 @@
 
                             </div>
                           
-                            <button type="submit" class="btn btn-primary" id="kt_contact_submit_button">
+                            <button type="submit" class="btn btn-info" id="kt_contact_submit_button">
                                 Edit
                             </button>
                         </form>

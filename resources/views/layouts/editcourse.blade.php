@@ -51,7 +51,7 @@
                             </div>
                             <input type="hidden" value="<?= $course->id ?>" name="course_id" />
                          
-                           <button type="submit" class="btn btn-primary" id="kt_contact_submit_button">
+                           <button type="submit" class="btn btn-info" id="kt_contact_submit_button">
                             Submit
                           </button>
                         </form>

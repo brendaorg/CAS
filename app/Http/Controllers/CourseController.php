@@ -10,7 +10,7 @@ class CourseController extends Controller
     
      public function index()
     {
-        $this->data['courses'] = \App\Models\Course::simplePaginate(10);
+        $this->data['courses'] = \App\Models\Course::where('user_id',\Auth::user()->id)->simplePaginate(10);
         return view('layouts/courses',$this->data);
     }
 
@@ -19,7 +19,6 @@ class CourseController extends Controller
    {
         return view('layouts/createcourses');
    }
-
 
     public function storeCourse()
     {
@@ -30,9 +29,9 @@ class CourseController extends Controller
         ]);
 
         $uuid = Str::uuid()->toString();
-        $array_data = array_merge(['uuid'=>$uuid,'created_at'=> now()],$data);
+        $array_data = array_merge(['uuid'=>$uuid,'created_at'=> now(),'user_id'=>\Auth::user()->id],$data);
         \DB::table('courses')->insert($array_data);
-        return redirect('/courses')->with('success','Created successfully');
+        return redirect('/courses')->with('success','Created successfully'); 
     }
 
     public function  editcourses($course_id){
@@ -69,9 +68,18 @@ class CourseController extends Controller
         $search_date = date('Y-m-d', strtotime(request('search_date')));
         $data['course_id'] = $course_id  = request('course_id');
 
-        $data['attendances'] = \App\Models\User::join('attendances', 'users.id', '=', 'attendances.user_id')->join('programs', 'programs.id', '=', 'users.program_id')->where('attendances.date','=',$search_date)->where('attendances.course_id','=',(int)$course_id)->where('users.status','=','1')->where('users.usertype','=','Student')->get(['users.*', 'attendances.*','programs.program_name']);
 
-         return view('layouts/showcourse',$data);
+      $date = \DB::table('course_timetable')->where('course_id',$course_id)->where('date',date('Y-m-d',strtotime($search_date)))->first();
+
+      if(!empty($date)){ 
+         $timein = $date->timein;
+         if(!is_null($timein)){
+            $data['attendances'] = \App\Models\User::join('attendances', 'users.id', '=', 'attendances.user_id')->join('programs', 'programs.id', '=', 'users.program_id')->where('attendances.date','=',$search_date)->where('attendances.timein','>=',$timein)->where('attendances.date','<=',$timein)->where('users.status','=','1')->where('users.usertype','=','Student')->get(['users.*', 'attendances.*','programs.program_name']);
+         }
+      } else{
+        $data['attendances'] = [];
+      }
+        return view('layouts/showcourse',$data);
     }
 
 
@@ -84,8 +92,21 @@ class CourseController extends Controller
             array_push($ids, $values->course_id);
         }
 
-      $data['courses'] = \DB::table('courses')->whereIn('id',$ids)->get();
-      return view('layouts/set_timetable',$data);
+     // $data['courses'] = \DB::table('courses')->whereIn('id',$ids)->get();
+
+      $data['courses'] = \App\Models\Course::simplePaginate(10);
+
+    //   return view('layouts/set_timetable',$data);
+       return view('layouts/set_course_timetable',$data);
+    }
+
+
+    public  function setCourses($course_id){
+          $data['course_id'] = $course_id;
+          $data['course_name'] = \DB::table('courses')->where('id',$course_id)->first();
+          $data['courses_timetables'] = \DB::table('course_timetable')->join('courses','course_timetable.course_id','=','courses.id')
+          ->where('courses.id',$course_id)->whereNotNull('course_timetable.timein')->select('course_timetable.*')->orderBy('timein','DESC')->get();
+        return view('layouts/set_timetable',$data);
     }
 
 
@@ -93,6 +114,7 @@ class CourseController extends Controller
     public function createCourseTimetable()
     {
          $data['courses'] = \DB::table('courses')->get();
+
          return view('layouts/create_timetable',$data);
     }
 
@@ -101,53 +123,52 @@ class CourseController extends Controller
 
         $data = request()->validate([
             'course_id' => 'required',
-            'multi_dates'=>'required',
+            'timein'=>'required',
         ]);
 
-        $dates = explode(",", $data['multi_dates']);
+      $date = date("Y-m-d h:i:s", strtotime($data['timein']));
 
-        foreach($dates as $index => $value){
-            $array_data = array('date'=>date('Y-m-d',strtotime($value)),'course_id'=>$data['course_id']);
-           \DB::table('course_timetable')->insert($array_data);
-        }
-        return redirect('/set_table')->with('success', 'Successfully Created');
+      $exists =  \DB::table('course_timetable')->where('timein','>=',$date)->where('timein','<=',$date)->first();
+      if($exists){
+        return redirect()->back()->with('error', 'Another session is scheduled in this time');
+      }
+      $array_data = array('date'=>date('Y-m-d',strtotime($date)),'course_id'=>$data['course_id'],'timein'=>$date);
+
+      \DB::table('course_timetable')->insert($array_data);
+        return redirect()->back()->with('success', 'Successfully Created');
     }
 
 
 
-    public  function  editTimetable($course_id)
+    public  function  editTimetable($timetable_id)
     {
-        $courses =  \DB::table('course_timetable')->join('courses','courses.id','=','course_timetable.course_id')->where('course_timetable.course_id','=',$course_id)->get(['course_timetable.date','courses.id as course_id','courses.course_name','courses.course_code']);
-
-        $data['allcourses'] =  \DB::table('courses')->get();          
-         $dates = [];
-         $course_id;
-         foreach ($courses as $values) {
-               array_push($dates,date('d-m-Y',strtotime($values->date)));
-               $course_id =  $values->course_id;
-             }
-        $dates = implode(", ", $dates);
-        $data['course_id'] = $course_id;
-        $data['dates'] = $dates;
+        // $courses =  \DB::table('course_timetable')->join('courses','courses.id','=','course_timetable.course_id')->where('course_timetable.course_id','=',$course_id)->get(['course_timetable.date','courses.id as course_id','courses.course_name','courses.course_code']);
+        $data['courses'] = $courses =  \DB::table('course_timetable')->where('id',$timetable_id)->first();
+        $data['timein'] = date('Y-m-d h:i:s', strtotime($courses->timein));
+       
+        $data['course_id'] = $courses->course_id; 
+        $data['timetable_id'] = $timetable_id; 
         return view('layouts/edit_timetable',$data);
     }
 
 
     public  function editcoursesTimetable(){
          $data = request()->validate([
-            'course_id' => 'required',
-            'multi_dates'=>'required',
+            'timetable_id' => 'required', 
+            'timein' => 'required', 
         ]);
         
-        \DB::table('course_timetable')->where('course_id',(int)$data['course_id'])->delete();
 
-        $dates = explode(",", $data['multi_dates']);
+        $date_data =\DB::table('course_timetable')->where('id',(int)$data['timetable_id'])->first();
 
-        foreach($dates as $index => $value){
-            $array_data = array('date'=>date('Y-m-d',strtotime($value)),'course_id'=>(int)$data['course_id']);
-           \DB::table('course_timetable')->insert($array_data);
-        }
-        return redirect('/set_table')->with('success', 'Successfully Edited');
+        $date = date("Y-m-d h:i:s", strtotime(request('timein')));
+
+        $array_data = array('date'=>date('Y-m-d',strtotime($date)),'course_id'=>$date_data->course_id,'timein'=>$date);
+
+        \DB::table('course_timetable')->where('id',(int)request('timetable_id'))->update($array_data);
+
+        $course_id = $date_data->course_id;
+        return redirect('/course/set/'.$course_id)->with('success', 'Successfully Edited');
 
     }
 

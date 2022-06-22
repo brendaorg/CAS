@@ -84,7 +84,7 @@
                                            <td>
                                             <?= $attendance->registration_number ?>                              </td>
                                         <td>
-                                            <span class="badge badge-light-success fs-7 fw-bolder"><?= $attendance->program_name ?? '' ?></span>
+                                            <span class="badge badge-light-info fs-7 fw-bolder"><?= $attendance->program_name ?? '' ?></span>
                                         </td>
                                         <td> <?= $attendance->email ?></td>
                                         <td> <?= $attendance->timein ?? '' ?></td>

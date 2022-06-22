@@ -26,3 +26,6 @@ Route::get('/student/{id}',[ApiController::class,'student']);
 
 Route::post('/attendances',[ApiController::class,'postAttendances']);
 
+// Route::post('/mobile', 'ApiController@index');
+
+

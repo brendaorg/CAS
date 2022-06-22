@@ -11,44 +11,7 @@
     </div>
 </div>
 </div>
-
-    <form action="/resetPassword" method="post">
-        @csrf
-        <div class="card mb-7">
-            <div class="card-body">
-  
-                   <div class="card-header cursor-pointer">
-                            <div class="card-title m-0">
-                                <h3 class="fw-bolder m-0">Update password</h3>
-                            </div>
-                        </div>
-
-
-                      <div class="row mb-5">
-                        <div class="col-md-4 fv-row">
-                            <input type="password" class="form-control form-control-solid" placeholder="Old password" name="Oldpassword" required/>
-                        </div>
-                        <div class="col-md-4 fv-row">
-                            <input type="password" class="form-control form-control-solid" placeholder="New Password" name="newpassword" required/>
-                        </div>
-
-                        <div class="col-md-4 fv-row">
-                            <input type="password" class="form-control form-control-solid" placeholder="Confirm password" name="confirm_password" required/>
-                        </div>
-                       </div>
-
-
-                     
-                     <div class="d-flex align-items-center mb-10" >
-                          <button type="submit" class="btn btn-primary me-5">update </button>
-                    </div>
-             
-                </div>
-               </div>
-            </form>
-        </div>
-
-
+</div>
 
           <div class="post d-flex flex-column-fluid" id="kt_post">
              <div id="kt_content_container" class="container-xxl">
@@ -67,6 +30,14 @@
                                 <span class="fw-bolder fs-6 text-gray-800"><?= \Auth::user()->name() ?></span>
                             </div>
                         </div>
+
+                         <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Gender</label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800"><?= \Auth::user()->gender ?></span>
+                            </div>
+                        </div>
+
 
                         <div class="row mb-7">
                             <label class="col-lg-4 fw-bold text-muted">Role</label>
@@ -88,7 +59,23 @@
                             <div class="col-lg-8">
                                 <span class="fw-bolder fs-6 text-gray-800"><?= $stdprofile->program_name ?? ''?></span>
                             </div>
-                        </div>
+                        </div> 
+
+                         <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Registration number </label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800"><?= $stdprofile->registration_number ?? ''?></span>
+                            </div>
+                        </div> 
+
+                         <div class="row mb-7">
+                            <label class="col-lg-4 fw-bold text-muted">Attendance ID </label>
+                            <div class="col-lg-8">
+                                <span class="fw-bolder fs-6 text-gray-800"><?= $stdprofile->id ?? ''?></span>
+                            </div>
+                        </div> 
+
+
                       <?php } ?>
 
                         </div>
@@ -98,7 +85,52 @@
             </div>
 
 
-                              
+
+ <div class="post d-flex flex-column-fluid" id="kt_post">
+             <div id="kt_content_container" class="container-xxl">
+
+              <div class="card mb-7">
+                <div class="card-body">
+  
+                       <div class="card-header cursor-pointer">
+                            <div class="card-title m-0">
+                                <h3 class="fw-bolder m-0">Update password</h3>
+                            </div>
+                        </div>
+
+
+                   <form action="/resetPassword" method="post">
+                         @csrf
+                       
+                      <div class="row mb-5">
+                        <div class="col-md-4 fv-row">
+                            <input type="password" class="form-control form-control-solid" placeholder="Old password" name="Oldpassword" required/>
+                        </div>
+                        <div class="col-md-4 fv-row">
+                            <input type="password" class="form-control form-control-solid" placeholder="New Password" name="newpassword" required/>
+                        </div>
+
+                        <div class="col-md-4 fv-row">
+                            <input type="password" class="form-control form-control-solid" placeholder="Confirm password" name="confirm_password" required/>
+                        </div>
+                       </div>
+
+
+                     
+                     <div class="d-flex align-items-center mb-10" >
+                          <button type="submit" class="btn btn-info me-5">update </button>
+                    </div>
+                   </form>
+                 
+                </div>
+              </div>
+              </div>
+         </div>
+
+
+
+
+
 
 
 @endsection

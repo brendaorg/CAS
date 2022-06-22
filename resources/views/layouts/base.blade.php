@@ -20,23 +20,17 @@
 		<link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
 
-
-
-		<!--end::Global Stylesheets Bundle-->
 	</head>
 	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
-		<!--begin::Main-->
-		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">
-			<!--begin::Page-->
 			<div class="page d-flex flex-row flex-column-fluid">
-				<!--begin::Aside-->
-				<div id="kt_aside" class="aside aside-light aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
+				<div id="kt_aside" class="aside aside-dark aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
 					<!--begin::Brand-->
 					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 						<!--begin::Logo-->
 						<a href="#">
-							<img alt="Logo" src="{{ asset('assets/media/logos/bg-1.png') }}" class="h-65px logo" />
+							<img alt="Logo" src="{{ asset('assets/media/logos/bg-1.png') }}" class="h-65px logo" 
+							style="border-radius: 50%;" />
 						</a>
 						<!--end::Logo-->
 						<!--begin::Aside toggler-->
@@ -61,7 +55,7 @@
 							<div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true">
 								<div class="menu-item">
 									<div class="menu-content pb-2">
-										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Dashboard</span>
+										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Class Attendance system</span>
 									</div>
 								</div>
 
@@ -162,7 +156,7 @@
 									</span>
 									<div class="menu-sub menu-sub-accordion">
 
-						           	<?php if(\Auth::user()->usertype <> 'Admin') { ?>
+						           	<?php if(\Auth::user()->usertype == 'Admin') { ?>
 										<div class="menu-item">
 											<a class="menu-link" href="{{ url('/users/staffs')}}">
 												<span class="menu-bullet">
@@ -257,7 +251,6 @@
 										<div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch" id="#kt_header_menu" data-kt-menu="true">
 											<div class="menu-item me-lg-1">
 												<h5 class="menu-link py-3">
-													<span class="menu-title">Dashboard</span>
 								            	</h5>
 											</div>
 										</div>

@@ -9,7 +9,7 @@
 
         <div class="text-center mb-10">
               <a href="#" class="mb-18">
-				 <img alt="Logo" src="assets/media/logos/bg-1.png" class="h-150px " />
+				 <img alt="Logo" src="assets/media/logos/bg-1.png" class="h-140px " />
 			 </a>
         </div>
 
@@ -30,11 +30,11 @@
              
         </div>
         <div class="text-center">
-            <button  type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-success w-100 mb-5">
+            <button  type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-info w-100 mb-5">
                 Sign in
             </button>
             <div class="text-gray-400 fw-bold fs-4">New Here?
-            <a href="{{ url('/register')}}" class="link-success fw-bolder">Register</a></div>
+            <a href="{{ url('/register')}}" class="link-info fw-bolder">Register</a></div>
         </div>
     </form>
     <!--end::Form-->

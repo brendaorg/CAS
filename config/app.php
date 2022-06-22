@@ -30,6 +30,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -135,6 +137,9 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+
+    'timezone' => 'Africa/Nairobi',
+    
 
     'providers' => [
 
